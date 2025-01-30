@@ -5,6 +5,7 @@ This project demonstrates an **automated file management system** using **AWS se
 
 ## 🏗️ Architecture  
 The system consists of the following AWS components:  
+![LAB3- workflow](https://github.com/user-attachments/assets/4903abe8-fb20-43d6-b648-e7df035be6bc)
 
 ### ☁️ Amazon S3 (Two Buckets)  
 - **🗂️ S3 (Primary)** – Stores processed files in a `FILES` folder and is configured as a static website.  
