@@ -70,4 +70,9 @@ Use **AWS CloudFormation** or **Terraform** for automation. Ensure proper **IAM 
 ## 👨‍💻 Author  
 Developed by **[Idan Uziel]**  
 
+## 👨‍💻 Screenshots
+![lab](https://github.com/user-attachments/assets/b95cc9a2-6c3c-4616-b924-116be7c62405)
+![lab2](https://github.com/user-attachments/assets/771e1ebf-051e-48e2-8a8c-fd8afe1206bb)
+
+
 ---
