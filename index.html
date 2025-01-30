@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 File List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1183.0.min.js"></script>
+</head>
+<body>
+    <h1>Files in the "FILES" Folder</h1>
+    <ul id="file-list"></ul>
+    <script>
+        AWS.config.update({
+            region: 'us-west-2', // עדכן לאזור שבו הדלי שלך
+            credentials: new AWS.Credentials(
+                '', // הכנס את ה-Access Key שלך
+                ''  
+            )
+        });
+
+        const s3 = new AWS.S3();
+        const bucketName = 'mybucket535'; // הכנס את שם הדלי שלך
+        const folderName = 'FILES/';
+
+        async function listFiles() {
+            const params = {
+                Bucket: bucketName,
+                Prefix: folderName
+            };
+
+            try {
+                const data = await s3.listObjectsV2(params).promise();
+                const fileList = document.getElementById("file-list");
+
+                if (data.Contents.length === 0) {
+                    fileList.innerHTML = "<li>No files found in the folder.</li>";
+                    return;
+                }
+
+                data.Contents.forEach(file => {
+                    const fileName = file.Key.replace(folderName, '');
+                    if (fileName) {
+                        const li = document.createElement("li");
+                        const a = document.createElement("a");
+                        a.href = `https://${bucketName}.s3.amazonaws.com/${file.Key}`;
+                        a.textContent = fileName;
+                        li.appendChild(a);
+                        fileList.appendChild(li);
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching files:', error);
+                const fileList = document.getElementById("file-list");
+                fileList.innerHTML = "<li>Error fetching files. Check the console for details.</li>";
+            }
+        }
+
+        listFiles();
+    </script>
+</body>
+</html>
